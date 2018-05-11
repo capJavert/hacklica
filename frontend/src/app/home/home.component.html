@@ -1,0 +1,104 @@
+<div class="row main-content">
+  <div class="col-md-8">
+    <ul class="actions-container">
+      <li><button type="button" [color]="'primary'" mat-raised-button><mat-icon>add</mat-icon></button></li>
+    </ul>
+  </div>
+
+  <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+    <ul class="filter-container">
+      <li [ngClass]="{'selected': messageFilter}"
+          (click)="messageFilter = !messageFilter">Messages</li>
+      <li [ngClass]="{'selected': emailFilter}"
+          (click)="emailFilter = !emailFilter">Emails</li>
+      <li [ngClass]="{'selected': documentFilter}"
+          (click)="documentFilter = !documentFilter">Documents</li>
+      <li [ngClass]="{'selected': eventFilter}"
+          (click)="eventFilter = !eventFilter">Events</li>
+    </ul>
+  </div>
+
+  <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+    <section class="pinned-notifications-container">
+      <h3>Pinned notifications</h3>
+
+      <mat-accordion>
+      </mat-accordion>
+    </section>
+
+    <mat-accordion>
+      <h3>Notifications</h3>
+
+      <mat-expansion-panel (opened)="openChat(notification.id)" class="pinned" *ngFor="let notification of notifications">
+        <mat-expansion-panel-header *ngIf="notification.type === 'document'">
+          <mat-panel-title>
+           <mat-icon>insert_drive_file</mat-icon>
+            <span class="notification-title">New file</span>
+          </mat-panel-title>
+          <mat-panel-description>
+            <span class="notification-title">
+              {{notification.name}} want's to share document
+            </span>
+          </mat-panel-description>
+          <section class="notification-actions">
+            <mat-icon>done</mat-icon>
+          </section>
+        </mat-expansion-panel-header>
+
+        <mat-expansion-panel-header *ngIf="notification.type === 'message'">
+          <mat-panel-title>
+            <mat-icon>message</mat-icon>
+            <span class="notification-title">New message</span>
+          </mat-panel-title>
+          <mat-panel-description>
+            <span class="notification-title">
+              {{notification.name}} sent you a message
+            </span>
+          </mat-panel-description>
+          <section class="notification-actions">
+            <mat-icon>done</mat-icon>
+          </section>
+        </mat-expansion-panel-header>
+
+        <mat-expansion-panel-header *ngIf="notification.type === 'email'">
+          <mat-panel-title>
+            <mat-icon>email</mat-icon>
+            <span class="notification-title">New email</span>
+          </mat-panel-title>
+          <mat-panel-description>
+            <span *ngIf="notification.type === 'email'" class="notification-title">
+              {{notification.name}} sent you an email
+            </span>
+          </mat-panel-description>
+          <section class="notification-actions">
+            <mat-icon>done</mat-icon>
+          </section>
+        </mat-expansion-panel-header>
+
+        <mat-expansion-panel-header *ngIf="notification.type === 'event'">
+          <mat-panel-title>
+            <mat-icon>email</mat-icon>
+            <span class="notification-title">New email</span>
+          </mat-panel-title>
+          <mat-panel-description>
+            <span *ngIf="notification.type === 'event'" class="notification-title">
+              Event at {{notification.last_notif | date: 'HH:mm'}}
+            </span>
+          </mat-panel-description>
+          <section class="notification-actions">
+            <mat-icon>done</mat-icon>
+            <mat-icon>notification_important</mat-icon>
+          </section>
+        </mat-expansion-panel-header>
+
+        <div *ngIf="notification.type === 'email'">
+          <!-- TODO -->
+        </div>
+        <app-chat *ngIf="notification.type === 'message'"
+                  [chatId]="notification.id"
+                  [messages]="messages">
+        </app-chat>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

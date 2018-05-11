@@ -1,0 +1,68 @@
+{
+  "countries": [
+    {
+      "code": "CRO",
+      "name": "Rvatska",
+      "id": "CRO"
+    },
+    {
+      "code": "BIH",
+      "name": "Bosna",
+      "id": "BIH"
+    }
+  ],
+  "towns": [
+    {
+      "id": "1",
+      "name": "Zagreb",
+      "postalNumber": "10000",
+      "country": {
+        "code": "CRO",
+        "name": "Rvatska"
+      }
+    }
+  ],
+  "device-services": [
+    {
+      "id": "1",
+      "description": "Test service 1"
+    },
+    {
+      "id": "1",
+      "description": "Test service 2"
+    }
+  ],
+  "access-policies": [
+    {
+      "accessPolicyId": "1",
+      "name": "Test",
+      "unlockAfterTimePeriod": "42",
+      "workingHoursCronExpression": [
+        "0 0 12 1/1 * ? *",
+        "0 0 6 1/1 * ? *",
+        "0 0 3 1/1 * ? *"
+      ],
+      "id": 1
+    }
+  ],
+  "archive-reasons": [
+    {
+      "id": "1",
+      "description": "Permanetly retarded"
+    },
+    {
+      "id": "2",
+      "description": "Temporary dead - sent to graveyard"
+    }
+  ],
+  "document-types": [
+    {
+      "id": "1",
+      "description": "PIN envelope"
+    },
+    {
+      "id": "2",
+      "description": "PIN sticker"
+    }
+  ]
+}

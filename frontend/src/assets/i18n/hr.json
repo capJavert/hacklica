@@ -1,0 +1,71 @@
+{
+  "HOME": {
+    "HOME": "Početna",
+    "HELLO": "pozdrav svijetu"
+  },
+  "LANGUAGES": {
+    "ENGLISH": "Engleski",
+    "CROATIAN": "Hrvatski"
+  },
+  "MAIN": {
+    "TITLE": "App",
+    "CLOSE": "Zatvori",
+    "FILTERS": "Filteri",
+    "PER_PAGE": "Stavki po stranici"
+  },
+  "TITLES": {
+    "CREATE": "Kreiranje",
+    "VIEW": "Pregled",
+    "EDIT": "Uređivanje",
+    "DELETE": "Brisanje"
+  },
+  "COMMONS": {
+    "RESOURCE": "Resurs",
+    "RESOURCES": "Resursi",
+    "ID": "ID",
+    "NAME": "Ime",
+    "DESCRIPTION": "Opis",
+    "SEARCH": "Pretraži",
+    "RESET": "Poništi",
+    "DELETE": "Obriši",
+    "EDIT": "Uredi",
+    "SAVE": "Spremi",
+    "ADD": "Dodaj novi",
+    "NEW_FEMALE": "Nova",
+    "NEW_MALE": "Novi",
+    "SAVE_NEW_MESSAGE_FEMALE": "{{modelName}} je uspješno kreirana",
+    "SAVE_NEW_MESSAGE_MALE": "{{modelName}} je uspješno kreiran",
+    "SAVE_UPDATE_MESSAGE_FEMALE": "{{modelName}} je uspješno spremljena",
+    "SAVE_UPDATE_MESSAGE_MALE": "{{modelName}} je uspješno spremljen",
+    "DELETE_MESSAGE_FEMALE": "{{modelName}} je uspješno obrisana",
+    "DELETE_MESSAGE_MALE": "{{modelName}} je uspješno obrisan",
+    "ACTIVE": "Aktivan",
+    "BLOCKED": "Blokiran"
+  },
+  "DELETE": {
+    "TITLE": "Brisanje stavke",
+    "MESSAGE": "Jeste li sigurni da želite obrisati stavku?",
+    "CONFIRM": "Da, obriši",
+    "CANCEL": "Odustani"
+  },
+  "ERRORS": {
+    "ERROR": "Pogreška",
+    "APPLICATION_ERROR": "Dogodila se pogreška!",
+    "PAGE_NOT_FOUND": "Stranica nije pronađena!",
+    "PAGE_NOT_FOUND_MESSAGE": "Ova stranica ne postoji ili je resurs koji tražite obrisan.",
+    "PAGE_NOT_FOUND_TIP_1": "Provjerite upisanu adresu ili pregledajte navigaciju stranice kako bi pronašli postojeće resurse.",
+    "PAGE_NOT_FOUND_TIP_2": "Uvijek se možete vratiti na",
+    "PREVIOUS_PAGE": "prethodnu stranicu"
+  },
+  "VALIDATORS": {
+    "RESTRICTED": "{{fieldName}} može sadržavati znakove {{allowedCharacters}}",
+    "RESTRICTED_LENGTH": "{{fieldName}} mora biti dužine {{length}} i sadržavati znakove {{allowedCharacters}}",
+    "NUMBER": "{{fieldName}} mora biti broj",
+    "NUMBER_LENGTH": "{{fieldName}} mora biti broj dužine {{length}} znakova",
+    "TEXT": "{{fieldName}} mora sadržavati tekst",
+    "STRING": "{{fieldName}} mora sadržavati samo brojeve i slova",
+    "STRING_LENGTH": "{{fieldName}} mora biti dužine {{length}} i sadržavati brojeve ili slove",
+    "CRON": "Svaki redak mora sadržavati ispravan Cron izraz",
+    "POSTAL_NUMBER": "Mora biti ispravan poštanski broj"
+  }
+}

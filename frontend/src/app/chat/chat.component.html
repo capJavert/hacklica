@@ -1,0 +1,24 @@
+
+<div class="row main-content">
+  <div class="messages-container" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+    <div *ngFor="let message of messages" class="message-container"
+         [ngClass]="{
+          'my-message': message.userId === userInstance.id,
+          'other-message': message.userId !== userInstance.id
+         }">
+      <div class="message">
+        {{message.text}}
+      </div>
+    </div>
+  </div>
+
+  <div class="actions-container">
+    <input [(ngModel)]="message"
+           (keydown)="predict($event)"
+           type="text"
+           placeholder="Type message, command..."
+           (keyup)="messageReply($event)"
+    />
+    <span class="prediction" *ngIf="!!prediction">{{prediction}}</span>
+  </div>
+</div>
