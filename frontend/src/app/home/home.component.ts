@@ -96,10 +96,8 @@ export class HomeComponent extends BaseComponent implements OnInit {
 
     this.userService.notifications().subscribe(
       (notifications) => {
-        //this.pinnedNotifications = notifications.filter(obj => obj.pinned == true);
-        //this.notifications = notifications.filter(obj => obj.pinned == false);
-
-        this._notifications = notifications;
+        this._pinnedNotifications = notifications.filter(obj => obj.pinned == true);
+        this._notifications = notifications.filter(obj => obj.pinned == false);
       },
       error => this.handleError(error),
       () => this.loader.stop()
@@ -115,4 +113,70 @@ export class HomeComponent extends BaseComponent implements OnInit {
     );
   }
 
+  pin(componentId: number, event) {
+    event.preventDefault();
+
+    this.loader.start();
+
+    this.userService.pin(componentId).subscribe(
+      () => {
+        this.userService.notifications().subscribe(
+          (notifications) => {
+            this._pinnedNotifications = notifications.filter(obj => obj.pinned == true);
+            this._notifications = notifications.filter(obj => obj.pinned == false);
+          },
+          error => this.handleError(error),
+          () => this.loader.stop()
+        );
+      },
+      error => {
+          this.handleError(error);
+          this.loader.stop()
+        },
+      );
+  }
+
+  unpin(componentId: number, event) {
+    event.preventDefault();
+
+    this.loader.start();
+
+    this.userService.unpin(componentId).subscribe(
+      () => {
+        this.userService.notifications().subscribe(
+          (notifications) => {
+            this._pinnedNotifications = notifications.filter(obj => obj.pinned == true);
+            this._notifications = notifications.filter(obj => obj.pinned == false);
+          },
+          error => this.handleError(error),
+          () => this.loader.stop()
+        );
+      },
+      error => {
+        this.handleError(error);
+        this.loader.stop()
+      },
+    );
+  }
+
+  hide(componentId: number, event) {
+    this.loader.start();
+
+    this.userService.hide(componentId).subscribe(
+      () => {
+        this.userService.notifications().subscribe(
+          (notifications) => {
+            this._pinnedNotifications = notifications.filter(obj => obj.pinned == true);
+            this._notifications = notifications.filter(obj => obj.pinned == false);
+          },
+          error => this.handleError(error),
+          () => this.loader.stop()
+        );
+      },
+      error => {
+        this.handleError(error);
+        this.loader.stop()
+      },
+    );
+  }
 }

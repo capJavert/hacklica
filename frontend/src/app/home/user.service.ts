@@ -35,4 +35,15 @@ export class UserService extends WebService<any> {
     return this.http.get<Array<Notification>>(this.servicePath + "/components", options);
   }
 
+  hide(componentId): Observable<any> {
+    return this.http.get<any>(this.servicePath + "/components/" + componentId + "/hide");
+  }
+
+  pin(componentId): Observable<any> {
+    return this.http.get<any>(this.servicePath + "/components/" + componentId + "/pin");
+  }
+
+  unpin(componentId): Observable<any> {
+    return this.http.get<any>(this.servicePath + "/components/" + componentId + "/unpin");
+  }
 }
