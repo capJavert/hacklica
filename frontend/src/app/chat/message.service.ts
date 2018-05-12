@@ -1,9 +1,8 @@
 import {Injectable} from "@angular/core";
 import {WebService} from "../modules/service/web.service";
-import {DocumentRef, DocumentReply, Message, MessageReply} from "./message";
+import {DocumentReply, Message, MessageReply} from "./message";
 import {Observable} from "rxjs/Observable";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {Model} from "../modules/models/model";
 
 @Injectable()
 export class MessageService extends WebService<Message> {
@@ -64,5 +63,9 @@ export class MessageService extends WebService<Message> {
     withCredentials?: boolean;
   }): Observable<Message> {
     return this.http.post<Message>(this.base + this.path + "/message/document" , model);
+  }
+
+  registerPushToken(tokenObject): Observable<any> {
+    return this.http.post<any>(this.base + this.path + "/webtoken", tokenObject);
   }
 }
