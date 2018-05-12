@@ -37,12 +37,12 @@
           <mat-expansion-panel-header *ngIf="notification.type === 'document'">
             <mat-panel-title>
               <mat-icon>insert_drive_file</mat-icon>
-              <span *ngIf="notification.name !== null" class="notification-title">New file</span>
-              <span *ngIf="notification.name === null" class="notification-title">Sent file</span>
+              <span *ngIf="!(notification.name.indexOf('to ') !== -1)" class="notification-title">New file</span>
+              <span *ngIf="notification.name.indexOf('to ') > -1" class="notification-title">Sent file</span>
             </mat-panel-title>
             <mat-panel-description>
-              <span *ngIf="notification.name !== null" class="notification-title">{{notification.name}} want's to share document</span>
-              <span *ngIf="notification.name === null" class="notification-title">You shared a document</span>
+              <span *ngIf="!(notification.name.indexOf('to ') !== -1)" class="notification-title">{{notification.name}} want's to share document</span>
+              <span *ngIf="notification.name.indexOf('to ') > -1" class="notification-title">You shared document {{notification.name}}</span>
             </mat-panel-description>
             <section class="notification-actions">
               <mat-icon (click)="hide(notification.id, $event)">done</mat-icon>
@@ -53,14 +53,12 @@
           <mat-expansion-panel-header *ngIf="notification.type === 'message'">
             <mat-panel-title>
               <mat-icon>message</mat-icon>
-              <span *ngIf="notification.name !== null" class="notification-title">New message</span>
-              <span *ngIf="notification.name === null" class="notification-title">Sent message</span>
+              <span *ngIf="!(notification.name.indexOf('to ') !== -1)" class="notification-title">New message</span>
+              <span *ngIf="notification.name.indexOf('to ') > -1" class="notification-title">Sent message</span>
             </mat-panel-title>
             <mat-panel-description>
-            <span class="notification-title">
-            <span *ngIf="notification.name !== null" class="notification-title">{{notification.name}} sent you a message</span>
-            <span *ngIf="notification.name === null" class="notification-title">You sent a message</span>
-            </span>
+              <span *ngIf="!(notification.name.indexOf('to ') !== -1)" class="notification-title">{{notification.name}} sent you a message</span>
+              <span *ngIf="notification.name.indexOf('to ') > -1" class="notification-title">You sent a message {{notification.name}}</span>
             </mat-panel-description>
             <section class="notification-actions">
               <mat-icon (click)="hide(notification.id, $event)">done</mat-icon>
@@ -71,12 +69,12 @@
           <mat-expansion-panel-header *ngIf="notification.type === 'email'">
             <mat-panel-title>
               <mat-icon>email</mat-icon>
-              <span *ngIf="notification.name !== null" class="notification-title">New email</span>
-              <span *ngIf="notification.name === null" class="notification-title">Sent email</span>
+              <span *ngIf="!(notification.name.indexOf('to ') !== -1)" class="notification-title">New email</span>
+              <span *ngIf="notification.name.indexOf('to ') > -1" class="notification-title">Sent email</span>
             </mat-panel-title>
             <mat-panel-description>
-              <span *ngIf="notification.name !== null" class="notification-title">{{notification.name}} sent you an email</span>
-              <span *ngIf="notification.name === null" class="notification-title">You sent an email</span>
+              <span *ngIf="!(notification.name.indexOf('to ') !== -1)" class="notification-title">{{notification.name}} sent you an email</span>
+              <span *ngIf="notification.name.indexOf('to ') > -1" class="notification-title">You sent an email {{notification.name}}</span>
             </mat-panel-description>
             <section class="notification-actions">
               <mat-icon (click)="hide(notification.id, $event)">done</mat-icon>
@@ -87,12 +85,11 @@
           <mat-expansion-panel-header *ngIf="notification.type === 'event'">
             <mat-panel-title>
               <mat-icon>event</mat-icon>
-              <span *ngIf="notification.name !== null" class="notification-title">New event</span>
-              <span *ngIf="notification.name === null" class="notification-title">Created event</span>
+              <span class="notification-title">Event incoming</span>
             </mat-panel-title>
             <mat-panel-description>
             <span *ngIf="notification.type === 'event'" class="notification-title">
-              Event at {{notification.last_notif*1000 | date: 'h:mm a'}}
+              {{notification.name}} at {{notification.last_notif*1000 | date: 'h:mm a'}}
             </span>
             </mat-panel-description>
             <section class="notification-actions">
@@ -140,12 +137,12 @@
         <mat-expansion-panel-header *ngIf="notification.type === 'document'">
           <mat-panel-title>
            <mat-icon>insert_drive_file</mat-icon>
-            <span *ngIf="notification.name !== null" class="notification-title">New file</span>
-            <span *ngIf="notification.name === null" class="notification-title">Sent file</span>
+            <span *ngIf="!(notification.name.indexOf('to ') !== -1)" class="notification-title">New file</span>
+            <span *ngIf="notification.name.indexOf('to ') > -1" class="notification-title">Sent file</span>
           </mat-panel-title>
           <mat-panel-description>
-            <span *ngIf="notification.name !== null" class="notification-title">{{notification.name}} want's to share document</span>
-            <span *ngIf="notification.name === null" class="notification-title">You shared a document</span>
+            <span *ngIf="!(notification.name.indexOf('to ') !== -1)" class="notification-title">{{notification.name}} want's to share document</span>
+            <span *ngIf="notification.name.indexOf('to ') > -1" class="notification-title">You shared document {{notification.name}}</span>
           </mat-panel-description>
           <section class="notification-actions">
             <mat-icon (click)="hide(notification.id, $event)">done</mat-icon>
@@ -156,14 +153,12 @@
         <mat-expansion-panel-header *ngIf="notification.type === 'message'">
           <mat-panel-title>
             <mat-icon>message</mat-icon>
-            <span *ngIf="notification.name !== null" class="notification-title">New message</span>
-            <span *ngIf="notification.name === null" class="notification-title">Sent message</span>
+            <span *ngIf="!(notification.name.indexOf('to ') !== -1)" class="notification-title">New message</span>
+            <span *ngIf="notification.name.indexOf('to ') > -1" class="notification-title">Sent message</span>
           </mat-panel-title>
           <mat-panel-description>
-            <span class="notification-title">
-            <span *ngIf="notification.name !== null" class="notification-title">{{notification.name}} sent you a message</span>
-            <span *ngIf="notification.name === null" class="notification-title">You sent a message</span>
-            </span>
+            <span *ngIf="!(notification.name.indexOf('to ') !== -1)" class="notification-title">{{notification.name}} sent you a message</span>
+            <span *ngIf="notification.name.indexOf('to ') > -1" class="notification-title">You sent a message {{notification.name}}</span>
           </mat-panel-description>
           <section class="notification-actions">
             <mat-icon (click)="hide(notification.id, $event)">done</mat-icon>
@@ -174,12 +169,12 @@
         <mat-expansion-panel-header *ngIf="notification.type === 'email'">
           <mat-panel-title>
             <mat-icon>email</mat-icon>
-            <span *ngIf="notification.name !== null" class="notification-title">New email</span>
-            <span *ngIf="notification.name === null" class="notification-title">Sent email</span>
+            <span *ngIf="!(notification.name.indexOf('to ') !== -1)" class="notification-title">New email</span>
+            <span *ngIf="notification.name.indexOf('to ') > -1" class="notification-title">Sent email</span>
           </mat-panel-title>
           <mat-panel-description>
-            <span *ngIf="notification.name !== null" class="notification-title">{{notification.name}} sent you an email</span>
-            <span *ngIf="notification.name === null" class="notification-title">You sent an email</span>
+            <span *ngIf="!(notification.name.indexOf('to ') !== -1)" class="notification-title">{{notification.name}} sent you an email</span>
+            <span *ngIf="notification.name.indexOf('to ') > -1" class="notification-title">You sent an email {{notification.name}}</span>
           </mat-panel-description>
           <section class="notification-actions">
             <mat-icon (click)="hide(notification.id, $event)">done</mat-icon>
@@ -190,12 +185,11 @@
         <mat-expansion-panel-header *ngIf="notification.type === 'event'">
           <mat-panel-title>
             <mat-icon>event</mat-icon>
-            <span *ngIf="notification.name !== null" class="notification-title">New event</span>
-            <span *ngIf="notification.name === null" class="notification-title">Created event</span>
+            <span class="notification-title">Event incoming</span>
           </mat-panel-title>
           <mat-panel-description>
             <span *ngIf="notification.type === 'event'" class="notification-title">
-              Event at {{notification.last_notif*1000 | date: 'h:mm a'}}
+              {{notification.name}} at {{notification.last_notif*1000 | date: 'h:mm a'}}
             </span>
           </mat-panel-description>
           <section class="notification-actions">
