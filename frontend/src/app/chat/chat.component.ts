@@ -42,7 +42,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.message = "";
     this.userInstance = UserInstance;
 
-    //this.setAutoRefresh();
+    this.setAutoRefresh();
 
     messaging.onMessage((payload) => {
       console.log(this.messages);
