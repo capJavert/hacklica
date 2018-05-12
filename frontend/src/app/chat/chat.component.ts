@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {PredictionService} from "./prediction.service";
 import {ConditionsUtil} from "../modules/utils/ConditionsUtil";
 import {LoaderService} from "../modules/loader/loader.service";
-import {Message, MessageReply} from "./message";
+import {Document, DocumentReply, Message, MessageReply} from "./message";
 import {UserInstance} from "../modules/user/user.instance";
 import {User} from "../modules/user/user";
 import {MessageService} from "./message.service";
@@ -12,7 +12,7 @@ import {MessageService} from "./message.service";
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.less']
 })
-export class ChatComponent {
+export class ChatComponent implements OnInit, AfterViewChecked {
   @Input() chatId: number;
   @Input('messages')
   set messages(value: Message[]) {
@@ -30,6 +30,22 @@ export class ChatComponent {
     this.prediction = null;
     this.message = "";
     this.userInstance = UserInstance;
+  }
+
+  @ViewChild('scrollMe') private messagesContainer: ElementRef;
+
+  ngOnInit() {
+    this.scrollToBottom();
+  }
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
+    } catch(err) { }
   }
 
   get messages(): Message[] {
@@ -82,6 +98,25 @@ export class ChatComponent {
       newMessage.message = this.message;
 
       this.messageService.send(newMessage).subscribe(
+        (message) => {
+          this.message = "";
+          this.messages.push(message);
+        },
+        error => console.log(error),
+        () => this.loader.stop()
+      )
+    }
+  }
+
+  uploadFile(document: Document) {
+    if (ConditionsUtil.isNotNullNorEmpty(document)) {
+      let newMessage = new DocumentReply();
+      newMessage.componentId = this.chatId;
+      newMessage.userId = this.userInstance.id;
+      newMessage.message = this.message;
+      newMessage.document = document;
+
+      this.messageService.upload(newMessage).subscribe(
         (message) => {
           this.message = "";
           this.messages.push(message);

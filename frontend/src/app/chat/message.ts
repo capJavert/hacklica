@@ -6,6 +6,7 @@ export class Message extends Model {
   text: string;
   userId: number;
   name: string;
+  document: DocumentRef;
 
   constructor() {
     super();
@@ -18,4 +19,21 @@ export class MessageReply {
   userId: number;
   componentId: number;
   message: string;
+}
+
+export class DocumentReply extends MessageReply {
+  document: Document;
+}
+
+export class Document {
+  name: string;
+  data: string;
+  type: string = "file";
+}
+
+export class DocumentRef {
+  id: number;
+  path: string;
+  type: string;
+  name: string;
 }

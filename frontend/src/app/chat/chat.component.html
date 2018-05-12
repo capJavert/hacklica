@@ -1,13 +1,19 @@
 
 <div class="row main-content">
-  <div class="messages-container" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+  <div class="messages-container" #scrollMe>
     <div *ngFor="let message of messages" class="message-container"
          [ngClass]="{
           'my-message': message.userId === userInstance.id,
           'other-message': message.userId !== userInstance.id
          }">
-      <div class="message">
+      <div *ngIf="!message.document" class="message">
         {{message.text}}
+      </div>
+      <div *ngIf="message.document" class="message">
+        <div class="valign-center">
+          <span>{{message.text}}</span>&nbsp;
+          <mat-icon>attach_file</mat-icon><a target="_blank" href="{{message.document.path}}">{{message.document.name}}</a>
+        </div>
       </div>
     </div>
   </div>
@@ -19,6 +25,7 @@
            placeholder="Type message, command..."
            (keyup)="messageReply($event)"
     />
+    <app-file (loadMore)="uploadFile($event)"></app-file>
     <span class="prediction" *ngIf="!!prediction">{{prediction}}</span>
   </div>
 </div>

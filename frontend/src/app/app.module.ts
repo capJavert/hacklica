@@ -43,6 +43,7 @@ import {UserService} from "./home/user.service";
 import {PredictionService} from "./chat/prediction.service";
 import {FormsModule} from "@angular/forms";
 import {MessageService} from "./chat/message.service";
+import { FileComponent } from './file/file.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -61,7 +62,8 @@ export function createTranslateLoader(http: HttpClient) {
     HeaderComponent,
     ErrorComponent,
     ChatComponent,
-    EventComponent
+    EventComponent,
+    FileComponent
   ],
   imports: [
     // angular modules
