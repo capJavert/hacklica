@@ -26,7 +26,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   constructor(private predictionService: PredictionService,
               private loader: LoaderService,
-              private messageService: MessageService) {
+              public messageService: MessageService) {
     this.prediction = null;
     this.message = "";
     this.userInstance = UserInstance;

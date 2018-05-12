@@ -12,7 +12,10 @@
       <div *ngIf="message.document" class="message">
         <div class="valign-center">
           <span>{{message.text}}</span>&nbsp;
-          <mat-icon>attach_file</mat-icon><a target="_blank" href="{{message.document.path}}">{{message.document.name}}</a>
+          <mat-icon>attach_file</mat-icon>
+          <a target="_blank"
+             href="{{messageService.base}}/{{message.document.path}}">{{message.document.name}}
+          </a>
         </div>
       </div>
     </div>
