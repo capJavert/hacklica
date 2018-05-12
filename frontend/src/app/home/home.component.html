@@ -19,7 +19,7 @@
   </div>
 
   <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-    <section *ngIf="pinnedNotifications" class="pinned-notifications-container">
+    <section *ngIf="pinnedNotifications.length > 0" class="pinned-notifications-container">
       <h3>Pinned notifications</h3>
 
       <mat-accordion>
@@ -27,12 +27,12 @@
           <mat-expansion-panel-header *ngIf="notification.type === 'document'">
             <mat-panel-title>
               <mat-icon>insert_drive_file</mat-icon>
-              <span class="notification-title">New file</span>
+              <span *ngIf="notification.name !== null" class="notification-title">New file</span>
+              <span *ngIf="notification.name === null" class="notification-title">Sent file</span>
             </mat-panel-title>
             <mat-panel-description>
-            <span class="notification-title">
-              {{notification.name}} want's to share document
-            </span>
+              <span *ngIf="notification.name !== null" class="notification-title">{{notification.name}} want's to share document</span>
+              <span *ngIf="notification.name === null" class="notification-title">You shared a document</span>
             </mat-panel-description>
             <section class="notification-actions">
               <mat-icon (click)="hide(notification.id, $event)">done</mat-icon>
@@ -43,11 +43,13 @@
           <mat-expansion-panel-header *ngIf="notification.type === 'message'">
             <mat-panel-title>
               <mat-icon>message</mat-icon>
-              <span class="notification-title">New message</span>
+              <span *ngIf="notification.name !== null" class="notification-title">New message</span>
+              <span *ngIf="notification.name === null" class="notification-title">Sent message</span>
             </mat-panel-title>
             <mat-panel-description>
             <span class="notification-title">
-              {{notification.name}} sent you a message
+            <span *ngIf="notification.name !== null" class="notification-title">{{notification.name}} sent you a message</span>
+            <span *ngIf="notification.name === null" class="notification-title">You sent a message</span>
             </span>
             </mat-panel-description>
             <section class="notification-actions">
@@ -59,12 +61,12 @@
           <mat-expansion-panel-header *ngIf="notification.type === 'email'">
             <mat-panel-title>
               <mat-icon>email</mat-icon>
-              <span class="notification-title">New email</span>
+              <span *ngIf="notification.name !== null" class="notification-title">New email</span>
+              <span *ngIf="notification.name === null" class="notification-title">Sent email</span>
             </mat-panel-title>
             <mat-panel-description>
-            <span *ngIf="notification.type === 'email'" class="notification-title">
-              {{notification.name}} sent you an email
-            </span>
+              <span *ngIf="notification.name !== null" class="notification-title">{{notification.name}} sent you an email</span>
+              <span *ngIf="notification.name === null" class="notification-title">You sent an email</span>
             </mat-panel-description>
             <section class="notification-actions">
               <mat-icon (click)="hide(notification.id, $event)">done</mat-icon>
@@ -74,8 +76,9 @@
 
           <mat-expansion-panel-header *ngIf="notification.type === 'event'">
             <mat-panel-title>
-              <mat-icon>email</mat-icon>
-              <span class="notification-title">New email</span>
+              <mat-icon>event</mat-icon>
+              <span *ngIf="notification.name !== null" class="notification-title">New event</span>
+              <span *ngIf="notification.name === null" class="notification-title">Created event</span>
             </mat-panel-title>
             <mat-panel-description>
             <span *ngIf="notification.type === 'event'" class="notification-title">
@@ -88,6 +91,12 @@
             </section>
           </mat-expansion-panel-header>
 
+          <div *ngIf="notification.type === 'event'">
+            <!-- TODO -->
+          </div>
+          <div *ngIf="notification.type === 'document'">
+            <!-- TODO -->
+          </div>
           <div *ngIf="notification.type === 'email'">
             <!-- TODO -->
           </div>
@@ -106,12 +115,12 @@
         <mat-expansion-panel-header *ngIf="notification.type === 'document'">
           <mat-panel-title>
            <mat-icon>insert_drive_file</mat-icon>
-            <span class="notification-title">New file</span>
+            <span *ngIf="notification.name !== null" class="notification-title">New file</span>
+            <span *ngIf="notification.name === null" class="notification-title">Sent file</span>
           </mat-panel-title>
           <mat-panel-description>
-            <span class="notification-title">
-              {{notification.name}} want's to share document
-            </span>
+            <span *ngIf="notification.name !== null" class="notification-title">{{notification.name}} want's to share document</span>
+            <span *ngIf="notification.name === null" class="notification-title">You shared a document</span>
           </mat-panel-description>
           <section class="notification-actions">
             <mat-icon (click)="hide(notification.id, $event)">done</mat-icon>
@@ -122,11 +131,13 @@
         <mat-expansion-panel-header *ngIf="notification.type === 'message'">
           <mat-panel-title>
             <mat-icon>message</mat-icon>
-            <span class="notification-title">New message</span>
+            <span *ngIf="notification.name !== null" class="notification-title">New message</span>
+            <span *ngIf="notification.name === null" class="notification-title">Sent message</span>
           </mat-panel-title>
           <mat-panel-description>
             <span class="notification-title">
-              {{notification.name}} sent you a message
+            <span *ngIf="notification.name !== null" class="notification-title">{{notification.name}} sent you a message</span>
+            <span *ngIf="notification.name === null" class="notification-title">You sent a message</span>
             </span>
           </mat-panel-description>
           <section class="notification-actions">
@@ -138,12 +149,12 @@
         <mat-expansion-panel-header *ngIf="notification.type === 'email'">
           <mat-panel-title>
             <mat-icon>email</mat-icon>
-            <span class="notification-title">New email</span>
+            <span *ngIf="notification.name !== null" class="notification-title">New email</span>
+            <span *ngIf="notification.name === null" class="notification-title">Sent email</span>
           </mat-panel-title>
           <mat-panel-description>
-            <span *ngIf="notification.type === 'email'" class="notification-title">
-              {{notification.name}} sent you an email
-            </span>
+            <span *ngIf="notification.name !== null" class="notification-title">{{notification.name}} sent you an email</span>
+            <span *ngIf="notification.name === null" class="notification-title">You sent an email</span>
           </mat-panel-description>
           <section class="notification-actions">
             <mat-icon (click)="hide(notification.id, $event)">done</mat-icon>
@@ -153,8 +164,9 @@
 
         <mat-expansion-panel-header *ngIf="notification.type === 'event'">
           <mat-panel-title>
-            <mat-icon>email</mat-icon>
-            <span class="notification-title">New email</span>
+            <mat-icon>event</mat-icon>
+            <span *ngIf="notification.name !== null" class="notification-title">New event</span>
+            <span *ngIf="notification.name === null" class="notification-title">Created event</span>
           </mat-panel-title>
           <mat-panel-description>
             <span *ngIf="notification.type === 'event'" class="notification-title">
@@ -167,6 +179,12 @@
           </section>
         </mat-expansion-panel-header>
 
+        <div *ngIf="notification.type === 'event'">
+          <!-- TODO -->
+        </div>
+        <div *ngIf="notification.type === 'document'">
+          <!-- TODO -->
+        </div>
         <div *ngIf="notification.type === 'email'">
           <!-- TODO -->
         </div>

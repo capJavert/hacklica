@@ -37,6 +37,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
     super(notificationService, _hotkeysService, loader, dialog, router, activatedRoute);
 
     this._notifications = [];
+    this._pinnedNotifications = [];
   }
 
   get pinnedNotifications(): Notification[] {
