@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Document} from "../chat/message";
 import {Router} from "@angular/router";
+import {ConditionsUtil} from "../modules/utils/ConditionsUtil";
 
 @Component({
   selector: 'app-file',
@@ -36,6 +37,8 @@ export class FileComponent {
       }
     };
 
-    myReader.readAsDataURL(file);
+    if (ConditionsUtil.isNotNullNorEmpty(file)) {
+      myReader.readAsDataURL(file);
+    }
   }
 }
