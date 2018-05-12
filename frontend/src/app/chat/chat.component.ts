@@ -44,7 +44,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     this.setAutoRefresh();
 
-    messaging.onMessage((payload) => {
+    /*messaging.onMessage((payload) => {
       console.log(this.messages);
 
       this.messageService.messages(this.chatId).subscribe(
@@ -53,7 +53,7 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
         },
         error => console.log(error)
       );
-    });
+    });*/
   }
 
   @ViewChild('scrollMe') private messagesContainer: ElementRef;
