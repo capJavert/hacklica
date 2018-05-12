@@ -21,10 +21,14 @@ user.session = new Session("Basic YWRtaW46YWRtaW4=", RoleEnum.Admin);
 export const UserInstance = user;
 
 export const Users = [
-  {id: 1, name: "Ante Barić"},
-  {id: 2, name: "Antonio Martinovic"},
-  {id: 3, name: "Tomislav Čivčija"}
+  {id: 1, name: "Ante Baric", image: "ante.jpg"},
+  {id: 2, name: "Antonio Martinovic", image: "sike.jpg"},
+  {id: 3, name: "Tomislav Civcija", image: "tomislav.jpg"}
 ];
+
+export const UserImages = {
+
+};
 
 export const messaging = firebase.messaging();
 

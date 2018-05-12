@@ -92,7 +92,7 @@
             </mat-panel-title>
             <mat-panel-description>
             <span *ngIf="notification.type === 'event'" class="notification-title">
-              Event at {{notification.last_notif | date: 'h:mm a'}}
+              Event at {{notification.last_notif*1000 | date: 'h:mm a'}}
             </span>
             </mat-panel-description>
             <section class="notification-actions">
@@ -102,13 +102,28 @@
           </mat-expansion-panel-header>
 
           <div *ngIf="notification.type === 'event'">
-            <!-- TODO -->
+            <app-event [event]="event"></app-event>
           </div>
-          <div *ngIf="notification.type === 'document'">
-            <!-- TODO -->
+          <div *ngIf="notification.type === 'document' && document">
+            <div class="panel-fixed-content-wrapper">
+              <object [data]="document.document.path" type="application/pdf" width="100%" height="100%">
+              </object>
+            </div>
           </div>
-          <div *ngIf="notification.type === 'email'">
-            <!-- TODO -->
+          <div *ngIf="notification.type === 'email' && emails.length > 0">
+            <article *ngFor="let email of emails" class="email-container">
+              <mat-chip-list>
+                <mat-chip color="accent" selected="true">
+                  {{email.name}}
+                </mat-chip>
+              </mat-chip-list>
+
+              <p>Hello,</p>
+              <p>{{email.text}}</p>
+
+              <p>Best Regards</p>
+              <p>{{email.name}}</p>
+            </article>
           </div>
           <app-chat *ngIf="notification.type === 'message'"
                     [chatId]="notification.id"
@@ -190,7 +205,7 @@
         </mat-expansion-panel-header>
 
         <div *ngIf="notification.type === 'event'">
-          <app-event></app-event>
+          <app-event [event]="event"></app-event>
         </div>
         <div *ngIf="notification.type === 'document' && document">
           <div class="panel-fixed-content-wrapper">
