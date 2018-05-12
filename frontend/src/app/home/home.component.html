@@ -10,6 +10,12 @@
           <mat-icon>add</mat-icon>
         </button>
       </li>
+      <li>
+      <li *ngIf="!isEditing && !isDashboardDisabled">
+        <button (click)="refresh()" type="button" [color]="'primary'" mat-raised-button>
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </li>
     </ul>
   </div>
 
@@ -33,7 +39,7 @@
       <h3>Pinned notifications</h3>
 
       <mat-accordion>
-        <mat-expansion-panel (opened)="openPanel(notification)" class="pinned" *ngFor="let notification of pinnedNotifications">
+        <mat-expansion-panel (closed)="closePanel(notification)" (opened)="openPanel(notification)" class="pinned" *ngFor="let notification of pinnedNotifications">
           <mat-expansion-panel-header *ngIf="notification.type === 'document'">
             <mat-panel-title>
               <mat-icon>insert_drive_file</mat-icon>
@@ -123,10 +129,12 @@
               <p>{{email.name}}</p>
             </article>
           </div>
-          <app-chat *ngIf="notification.type === 'message'"
-                    [chatId]="notification.id"
-                    [messages]="messages">
-          </app-chat>
+          <div *ngIf="notification.type === 'message' && message">
+            <app-chat *ngIf="notification.id === message.id"
+                      [chatId]="notification.id"
+                      [messages]="messages">
+            </app-chat>
+          </div>
         </mat-expansion-panel>
       </mat-accordion>
     </section>
@@ -134,7 +142,7 @@
     <mat-accordion>
       <h3>Notifications</h3>
 
-      <mat-expansion-panel (opened)="openPanel(notification)" class="pinned" *ngFor="let notification of notifications">
+      <mat-expansion-panel (closed)="closePanel(notification)" (opened)="openPanel(notification)" class="pinned" *ngFor="let notification of notifications">
         <mat-expansion-panel-header *ngIf="notification.type === 'document'">
           <mat-panel-title>
            <mat-icon>insert_drive_file</mat-icon>
@@ -224,10 +232,12 @@
             <p>{{email.name}}</p>
           </article>
         </div>
-        <app-chat *ngIf="notification.type === 'message'"
-                  [chatId]="notification.id"
-                  [messages]="messages">
-        </app-chat>
+        <div *ngIf="notification.type === 'message' && message">
+          <app-chat *ngIf="notification.id === message.id"
+                    [chatId]="notification.id"
+                    [messages]="messages">
+          </app-chat>
+        </div>
       </mat-expansion-panel>
     </mat-accordion>
   </div>

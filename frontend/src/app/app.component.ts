@@ -56,10 +56,6 @@ export class AppComponent implements OnDestroy {
           console.log('Unable to get permission to notify.', err);
         });
       });
-
-    messaging.onMessage((payload) => {
-      console.log('Message received. ', payload);
-    });
   }
 
   ngOnDestroy() {

@@ -10,6 +10,7 @@ import {Notification} from "./notification";
 import {MessageService} from "../chat/message.service";
 import {Message} from "../chat/message";
 import {DomSanitizer} from "@angular/platform-browser";
+import {ConditionsUtil} from "../modules/utils/ConditionsUtil";
 
 @Component({
   selector: 'app-home',
@@ -30,6 +31,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
   document: any;
   emails = [];
   event: any;
+  message: any;
 
   constructor(notificationService: NotificationService,
               _hotkeysService: HotkeysService,
@@ -100,6 +102,10 @@ export class HomeComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.refresh();
+  }
+
+  refresh() {
     this.loader.start();
 
     this.userService.notifications(this.router.url === "/dismissed").subscribe(
@@ -112,9 +118,30 @@ export class HomeComponent extends BaseComponent implements OnInit {
     );
   }
 
+  closePanel(notification: Notification) {
+    switch (notification.type) {
+      case "message":
+        this.message = null;
+        break;
+      case "email":
+        this.emails = [];
+        break;
+      case "event":
+        this.event = null;
+        break;
+      case "document":
+        this.document = null;
+        break;
+      default:
+        console.log("unknown notification type");
+    }
+  }
+
   openPanel(notification: Notification) {
     switch (notification.type) {
       case "message":
+        this.message = notification;
+
         this.messageService.messages(notification.id).subscribe(
           (messages) => {
             this.messages = messages;

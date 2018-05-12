@@ -1,20 +1,24 @@
-import {AfterViewChecked, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {
+  AfterViewChecked, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output,
+  ViewChild
+} from '@angular/core';
 import {PredictionService} from "./prediction.service";
 import {ConditionsUtil} from "../modules/utils/ConditionsUtil";
 import {LoaderService} from "../modules/loader/loader.service";
 import {Document, DocumentReply, Message, MessageReply} from "./message";
-import {UserInstance} from "../modules/user/user.instance";
+import {messaging, UserInstance} from "../modules/user/user.instance";
 import {User} from "../modules/user/user";
 import {MessageService} from "./message.service";
-import {MessageComponent} from "../create/component";
 import {Router} from "@angular/router";
+import {Subscription} from "rxjs/Subscription";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.less']
 })
-export class ChatComponent implements OnInit, AfterViewChecked {
+export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   @Input() chatId: number;
   @Input() isNew: boolean;
   @Input('messages')
@@ -28,6 +32,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   prediction: string;
   message: string;
   userInstance: User;
+  autoRefresh: Subscription;
 
   constructor(private predictionService: PredictionService,
               private loader: LoaderService,
@@ -36,9 +41,43 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     this.prediction = null;
     this.message = "";
     this.userInstance = UserInstance;
+
+    //this.setAutoRefresh();
+
+    messaging.onMessage((payload) => {
+      console.log(this.messages);
+
+      this.messageService.messages(this.chatId).subscribe(
+        (messages) => {
+          this.messages = messages;
+        },
+        error => console.log(error)
+      );
+    });
   }
 
   @ViewChild('scrollMe') private messagesContainer: ElementRef;
+
+  private setAutoRefresh(): void {
+    this.autoRefresh = Observable.interval(1000).subscribe(() => {
+      if (ConditionsUtil.isNull(this.chatId)) {
+        return;
+      }
+
+      this.messageService.messages(this.chatId).subscribe(
+        (messages) => {
+          this.messages = messages;
+        },
+        error => console.log(error)
+      );
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (ConditionsUtil.isNotNull(this.autoRefresh)) {
+      this.autoRefresh.unsubscribe()
+    }
+  }
 
   ngOnInit() {
     this.scrollToBottom();
