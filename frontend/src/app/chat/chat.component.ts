@@ -66,7 +66,9 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
 
       this.messageService.messages(this.chatId).subscribe(
         (messages) => {
-          this.messages = messages;
+          if (messages.length > this.messages.length) {
+            this.messages = messages;
+          }
         },
         error => console.log(error)
       );
