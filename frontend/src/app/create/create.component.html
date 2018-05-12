@@ -1,5 +1,5 @@
 
-<div class="cancel" (click)="endEditing.emit(true)">
+<div class="cancel" (click)="emitEndEditing()">
   <mat-icon>cancel</mat-icon>
 </div>
 
@@ -27,6 +27,20 @@
     <app-file (onDocument)="uploadFile($event)" [isBigFileManager]="true"></app-file>
   </mat-tab>
   <mat-tab label="Event">
-    <!-- TODO -->
+    <mat-form-field>
+      <input placeholder="Event title" matInput type="text" [(ngModel)]="eventComponent.name" />
+    </mat-form-field><br />
+
+    <mat-form-field>
+      <input matInput type="datetime-local" [(ngModel)]="eventComponent.timeStart" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Event type" [(ngModel)]="eventComponent.type">
+        <mat-option *ngFor="let type of eventTypes" [value]="type">{{type}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button (click)="createEvent()" type="submit" [color]="'primary'" mat-raised-button>Create Event</button>
   </mat-tab>
 </mat-tab-group>

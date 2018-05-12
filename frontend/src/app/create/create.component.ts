@@ -2,7 +2,7 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {Document, Message} from "../chat/message";
 import {ConditionsUtil} from "../modules/utils/ConditionsUtil";
 import {UserInstance, Users} from "../modules/user/user.instance";
-import {DocumentComponent} from "./component";
+import {DocumentComponent, EventComponentModel} from "./component";
 import {ComponentService} from "./component.service";
 import {MessageService} from "../chat/message.service";
 
@@ -13,15 +13,25 @@ import {MessageService} from "../chat/message.service";
 })
 export class CreateComponent {
   @Output() endEditing = new EventEmitter<boolean>();
-  users = Users;
+  users = Users.slice();
   selectedUsers = [];
   isNewMessage: boolean = true;
   chatId: number = null;
   messages: Message[];
 
+  eventComponent: EventComponentModel;
+  eventTypes = [
+    "Meetup",
+    "Launch",
+    "Teambuilding",
+    "Conference",
+    "Meeting"
+  ];
+
   constructor(private componentService: ComponentService,
               private messageService: MessageService) {
     this.messages = [];
+    this.eventComponent = new EventComponentModel();
   }
 
   sendMessage(message: string) {
@@ -62,7 +72,24 @@ export class CreateComponent {
 
       this.componentService.upload(newDocument).subscribe(
         () => {
-          this.endEditing.emit(true);
+          this.emitEndEditing();
+        },
+        error => console.log(error)
+      )
+    }
+  }
+
+  createEvent() {
+    if (ConditionsUtil.isNotNull(this.eventComponent)) {
+      this.eventComponent.timeStart = (new Date(this.eventComponent.timeStart).getTime() / 1000);
+      this.eventComponent.receivers = this.selectedUsers.map((user) => {
+        return user.id;
+      });
+      this.eventComponent.userId = UserInstance.id;
+
+      this.componentService.createEvent(this.eventComponent).subscribe(
+        () => {
+          this.emitEndEditing();
         },
         error => console.log(error)
       )
@@ -81,5 +108,9 @@ export class CreateComponent {
 
     this.users.push(user);
     this.selectedUsers.splice(this.selectedUsers.indexOf(user), 1);
+  }
+
+  emitEndEditing() {
+    this.endEditing.emit(true);
   }
 }

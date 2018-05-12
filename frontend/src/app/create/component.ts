@@ -12,3 +12,9 @@ export class MessageComponent extends Component {
 export class DocumentComponent extends MessageComponent {
   document: Document;
 }
+
+export class EventComponentModel extends Component {
+  name: string;
+  timeStart: number;
+  type: string;
+}
