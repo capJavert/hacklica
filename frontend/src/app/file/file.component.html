@@ -6,5 +6,5 @@
 </label>
 
 <div [ngClass]="{'bigFileManager': isBigFileManager}">
-  <input id="upload-photo" type="file" accept="*" (change)="changeListener($event)">
+  <input [disabled]="router.url === '/dismissed'" id="upload-photo" type="file" accept="*" (change)="changeListener($event)">
 </div>

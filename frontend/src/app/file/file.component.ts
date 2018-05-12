@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Document} from "../chat/message";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-file',
@@ -10,6 +11,8 @@ export class FileComponent {
   @Output() onDocument = new EventEmitter<Document>();
   @Input() isBigFileManager: boolean;
   document: Document;
+
+  constructor(public router: Router) {}
 
   changeListener($event) : void {
     this.readFile($event.target);

@@ -7,6 +7,7 @@ import {UserInstance} from "../modules/user/user.instance";
 import {User} from "../modules/user/user";
 import {MessageService} from "./message.service";
 import {MessageComponent} from "../create/component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-chat',
@@ -30,7 +31,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   constructor(private predictionService: PredictionService,
               private loader: LoaderService,
-              public messageService: MessageService) {
+              public messageService: MessageService,
+              public router: Router) {
     this.prediction = null;
     this.message = "";
     this.userInstance = UserInstance;

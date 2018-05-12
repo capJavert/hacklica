@@ -20,7 +20,7 @@ export class UserService extends WebService<any> {
     return "id";
   }
 
-  notifications(options?: {
+  notifications(dismissed: boolean = false, options?: {
     headers?: HttpHeaders | {
       [header: string]: string | string[];
     };
@@ -32,7 +32,10 @@ export class UserService extends WebService<any> {
     responseType?: 'json';
     withCredentials?: boolean;
   }): Observable<Array<Notification>> {
-    return this.http.get<Array<Notification>>(this.servicePath + "/components", options);
+    return this.http.get<Array<Notification>>(
+      this.servicePath + "/components" + (dismissed ? "/hidden" : ""),
+      options
+    );
   }
 
   hide(componentId): Observable<any> {

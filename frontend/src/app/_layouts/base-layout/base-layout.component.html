@@ -2,9 +2,20 @@
 <app-loader></app-loader>
 
 <div class="app-container" [class.app-is-mobile]="mobileQuery.matches">
-  <app-header [sidenav]="false"></app-header>
+  <app-header [sidenav]="sidenav" [sidenavVisible]="true"></app-header>
 
   <mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side">
+      <mat-nav-list class="main-sidebar">
+        <mat-list-item routerLink="/home">
+          {{ 'HOME.HOME' | translate }} <mat-icon class="mat-icon ">dashboard</mat-icon>
+        </mat-list-item>
+        <mat-list-item routerLink="/dismissed">
+          Done <mat-icon class="mat-icon ">done_all</mat-icon>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+
     <mat-sidenav-content>
       <div class="container-fluid">
         <app-breadcrumbs></app-breadcrumbs>

@@ -102,7 +102,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this.loader.start();
 
-    this.userService.notifications().subscribe(
+    this.userService.notifications(this.router.url === "/dismissed").subscribe(
       (notifications) => {
         this._pinnedNotifications = notifications.filter(obj => obj.pinned == true);
         this._notifications = notifications.filter(obj => obj.pinned == false);
@@ -162,7 +162,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
 
     this.userService.pin(componentId).subscribe(
       () => {
-        this.userService.notifications().subscribe(
+        this.userService.notifications(this.router.url === "/dismissed").subscribe(
           (notifications) => {
             this._pinnedNotifications = notifications.filter(obj => obj.pinned == true);
             this._notifications = notifications.filter(obj => obj.pinned == false);
@@ -185,7 +185,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
 
     this.userService.unpin(componentId).subscribe(
       () => {
-        this.userService.notifications().subscribe(
+        this.userService.notifications(this.router.url === "/dismissed").subscribe(
           (notifications) => {
             this._pinnedNotifications = notifications.filter(obj => obj.pinned == true);
             this._notifications = notifications.filter(obj => obj.pinned == false);
@@ -206,7 +206,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
 
     this.userService.hide(componentId).subscribe(
       () => {
-        this.userService.notifications().subscribe(
+        this.userService.notifications(this.router.url === "/dismissed").subscribe(
           (notifications) => {
             this._pinnedNotifications = notifications.filter(obj => obj.pinned == true);
             this._notifications = notifications.filter(obj => obj.pinned == false);
@@ -231,7 +231,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
 
     this.loader.start();
 
-    this.userService.notifications().subscribe(
+    this.userService.notifications(this.router.url === "/dismissed").subscribe(
       (notifications) => {
         this._pinnedNotifications = notifications.filter(obj => obj.pinned == true);
         this._notifications = notifications.filter(obj => obj.pinned == false);
@@ -239,5 +239,9 @@ export class HomeComponent extends BaseComponent implements OnInit {
       error => this.handleError(error),
       () => this.loader.stop()
     );
+  }
+
+  get isDashboardDisabled() {
+    return this.router.url === "/dismissed";
   }
 }

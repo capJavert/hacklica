@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" class="app-toolbar">
-  <button *ngIf="sidenav" mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
+  <button *ngIf="sidenavVisible" mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
   <h1 class="app-name">
     {{ 'SNACK' | translate }}
     <span class="version">v{{appVersion | async}}</span>

@@ -5,7 +5,7 @@
 
   <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
     <ul class="actions-container">
-      <li *ngIf="!isEditing">
+      <li *ngIf="!isEditing && !isDashboardDisabled">
         <button (click)="create()" type="button" [color]="'primary'" mat-raised-button>
           <mat-icon>add</mat-icon>
         </button>

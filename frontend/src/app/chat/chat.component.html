@@ -27,6 +27,7 @@
            type="text"
            placeholder="Type message, command..."
            (keyup)="messageReply($event)"
+           [disabled]="router.url === '/dismissed'"
     />
     <app-file (onDocument)="uploadFile($event)"></app-file>
     <span class="prediction" *ngIf="!!prediction">{{prediction}}</span>

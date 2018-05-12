@@ -10,6 +10,7 @@ import {Observable} from "rxjs/Observable";
   styleUrls: ['./header.component.less']
 })
 export class HeaderComponent implements OnInit {
+  @Input() sidenavVisible: TemplateRef<MatSidenav>;
   @Input() sidenav: TemplateRef<MatSidenav>;
 
   constructor(private translate: TranslateService,
