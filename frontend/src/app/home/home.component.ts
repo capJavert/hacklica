@@ -244,4 +244,8 @@ export class HomeComponent extends BaseComponent implements OnInit {
   get isDashboardDisabled() {
     return this.router.url === "/dismissed";
   }
+
+  isLive(timestamp: number) {
+    return timestamp <= (Date.now() / 1000 | 0);
+  }
 }

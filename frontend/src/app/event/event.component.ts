@@ -37,7 +37,7 @@ export class EventComponent {
   }
 
   isLive(timestamp: number) {
-    return timestamp >= (Date.now() / 1000 | 0);
+    return timestamp <= (Date.now() / 1000 | 0);
   }
 
   capitalizeFirstLetter(string) {

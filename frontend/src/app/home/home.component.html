@@ -85,7 +85,8 @@
           <mat-expansion-panel-header *ngIf="notification.type === 'event'">
             <mat-panel-title>
               <mat-icon>event</mat-icon>
-              <span class="notification-title">Event incoming</span>
+              <span *ngIf="!isLive(notification.last_notif)" class="notification-title">Event incoming</span>
+              <span *ngIf="isLive(notification.last_notif)" class="notification-title event-live">Event LIVE</span>
             </mat-panel-title>
             <mat-panel-description>
             <span *ngIf="notification.type === 'event'" class="notification-title">
@@ -185,7 +186,8 @@
         <mat-expansion-panel-header *ngIf="notification.type === 'event'">
           <mat-panel-title>
             <mat-icon>event</mat-icon>
-            <span class="notification-title">Event incoming</span>
+            <span *ngIf="!isLive(notification.last_notif)" class="notification-title">Event incoming</span>
+            <span *ngIf="isLive(notification.last_notif)" class="notification-title event-live">Event LIVE</span>
           </mat-panel-title>
           <mat-panel-description>
             <span *ngIf="notification.type === 'event'" class="notification-title">

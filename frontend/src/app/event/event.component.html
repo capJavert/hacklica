@@ -10,9 +10,9 @@
     </ul>
   </aside>
   <section class="col-md-9">
-    <app-chat *ngIf="isLive()" [messages]="messages" [chatId]="event.componentId"></app-chat>
+    <app-chat *ngIf="isLive(event.timeStart)" [messages]="messages" [chatId]="event.componentId"></app-chat>
 
-    <section class="meeting-waiting-room">
+    <section *ngIf="!isLive(event.timeStart)" class="meeting-waiting-room">
       <mat-icon>event</mat-icon>
       <h3>{{capitalizeFirstLetter(event.type)}} did not start yet</h3>
 
