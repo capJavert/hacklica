@@ -10,7 +10,6 @@ import {Notification} from "./notification";
 import {MessageService} from "../chat/message.service";
 import {Message} from "../chat/message";
 import {DomSanitizer} from "@angular/platform-browser";
-import {ConditionsUtil} from "../modules/utils/ConditionsUtil";
 
 @Component({
   selector: 'app-home',

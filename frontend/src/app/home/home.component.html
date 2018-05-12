@@ -110,8 +110,10 @@
           </div>
           <div *ngIf="notification.type === 'document' && document">
             <div class="panel-fixed-content-wrapper">
-              <object [data]="document.document.path" type="application/pdf" width="100%" height="100%">
+              <object *ngIf="document.document.path.toString().indexOf('.jpg') === -1"
+                      [data]="document.document.path" type="application/pdf" width="100%" height="100%">
               </object>
+              <img *ngIf="document.document.path.toString().indexOf('.jpg') > -1"  [src]="document.document.path" alt="" />
             </div>
           </div>
           <div *ngIf="notification.type === 'email' && emails.length > 0">
@@ -213,8 +215,10 @@
         </div>
         <div *ngIf="notification.type === 'document' && document">
           <div class="panel-fixed-content-wrapper">
-            <object [data]="document.document.path" type="application/pdf" width="100%" height="100%">
+            <object *ngIf="document.document.path.toString().indexOf('.jpg') === -1"
+                    [data]="document.document.path" type="application/pdf" width="100%" height="100%">
             </object>
+            <img *ngIf="document.document.path.toString().indexOf('.jpg') > -1"  [src]="document.document.path" alt="" />
           </div>
         </div>
         <div *ngIf="notification.type === 'email' && emails.length > 0">

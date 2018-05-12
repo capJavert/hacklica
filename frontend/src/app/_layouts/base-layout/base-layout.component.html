@@ -7,6 +7,9 @@
   <mat-sidenav-container>
     <mat-sidenav #sidenav mode="side">
       <mat-nav-list class="main-sidebar">
+        <mat-list-item>
+          <img src="/assets/img/{{user.image}}" alt="" /> {{user.username}}
+        </mat-list-item>
         <mat-list-item routerLink="/home">
           {{ 'HOME.HOME' | translate }} <mat-icon class="mat-icon ">dashboard</mat-icon>
         </mat-list-item>

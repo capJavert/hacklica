@@ -8,9 +8,12 @@ export class User {
   public firstname: string;
   public lastname: string;
   public organization: Organization;
+  public image: string;
 
   constructor() {
     this.id = 1;
+    this.username = "Ante Baric";
+    this.image = "ante.jpg";
   }
 
   get session(): Session {

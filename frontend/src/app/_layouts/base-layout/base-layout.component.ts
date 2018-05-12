@@ -1,5 +1,6 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {MediaMatcher} from "@angular/cdk/layout";
+import {UserInstance} from "../../modules/user/user.instance";
 
 @Component({
   selector: 'app-base-layout',
@@ -9,6 +10,7 @@ import {MediaMatcher} from "@angular/cdk/layout";
 export class BaseLayoutComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
+  user = UserInstance;
 
   constructor(changeDetectorRef: ChangeDetectorRef,
               media: MediaMatcher) {
