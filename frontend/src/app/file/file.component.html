@@ -6,5 +6,5 @@
 </label>
 
 <div [ngClass]="{'bigFileManager': isBigFileManager}">
-  <input id="upload-photo" type="file" accept="image/*" (change)="changeListener($event)">
+  <input id="upload-photo" type="file" accept="*" (change)="changeListener($event)">
 </div>

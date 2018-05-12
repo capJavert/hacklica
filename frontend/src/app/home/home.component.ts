@@ -9,6 +9,7 @@ import {UserService} from "./user.service";
 import {Notification} from "./notification";
 import {MessageService} from "../chat/message.service";
 import {Message} from "../chat/message";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-home',
@@ -26,6 +27,9 @@ export class HomeComponent extends BaseComponent implements OnInit {
   documentFilter: boolean = false;
 
   isEditing: boolean = false;
+  document: any;
+  emails = [];
+  event: any;
 
   constructor(notificationService: NotificationService,
               _hotkeysService: HotkeysService,
@@ -34,7 +38,8 @@ export class HomeComponent extends BaseComponent implements OnInit {
               router: Router,
               activatedRoute: ActivatedRoute,
               private userService: UserService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private sanitizer: DomSanitizer) {
 
     super(notificationService, _hotkeysService, loader, dialog, router, activatedRoute);
 
@@ -107,13 +112,47 @@ export class HomeComponent extends BaseComponent implements OnInit {
     );
   }
 
-  openChat(chatId: number) {
-    this.messageService.messages(chatId).subscribe(
-      (messages) => {
-        this.messages = messages;
-      },
-      error => console.log(error)
-    );
+  openPanel(notification: Notification) {
+    switch (notification.type) {
+      case "message":
+        this.messageService.messages(notification.id).subscribe(
+          (messages) => {
+            this.messages = messages;
+          },
+          error => console.log(error)
+        );
+        break;
+      case "email":
+        this.userService.email(notification.id).subscribe(
+          (emails) => {
+            this.emails = emails;
+          },
+          error => console.log(error)
+        );
+        break;
+      case "event":
+        this.userService.event(notification.id).subscribe(
+          (event) => {
+            this.event = event;
+          },
+          error => console.log(error)
+        );
+        break;
+      case "document":
+        this.userService.document(notification.id).subscribe(
+          (document) => {
+            this.document = document;
+            this.document.document.path = this.sanitizer.bypassSecurityTrustResourceUrl(
+              this.userService.base + '/' + this.document.document.path
+            );
+          },
+          error => console.log(error)
+        );
+        break;
+      default:
+        console.log("unknown notification type");
+    }
+
   }
 
   pin(componentId: number, event) {

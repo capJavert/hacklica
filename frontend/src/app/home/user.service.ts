@@ -46,4 +46,16 @@ export class UserService extends WebService<any> {
   unpin(componentId): Observable<any> {
     return this.http.get<any>(this.servicePath + "/components/" + componentId + "/unpin");
   }
+
+  email(componentId): Observable<any> {
+    return this.http.get<any>(this.base + this.path + "/emails/" + componentId);
+  }
+
+  document(componentId): Observable<any> {
+    return this.http.get<any>(this.base + this.path + "/document/" + componentId);
+  }
+
+  event(componentId): Observable<any> {
+    return this.http.get<any>(this.base + this.path + "/event/" + componentId);
+  }
 }
