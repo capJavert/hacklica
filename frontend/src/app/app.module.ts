@@ -11,14 +11,15 @@ import {AuthGuard} from "./app-routing/guards/auth.guard";
 import {BaseLayoutComponent} from './_layouts/base-layout/base-layout.component';
 import {FooterComponent} from './_layouts/footer/footer.component';
 import {
-  MatButtonModule,
+  MatAutocompleteModule,
+  MatButtonModule, MatChipsModule,
   MatDialogModule, MatExpansionModule, MatFormFieldModule,
-  MatIconModule,
+  MatIconModule, MatInputModule,
   MatListModule,
   MatProgressBarModule,
   MatSelectModule,
   MatSidenavModule,
-  MatSnackBarModule,
+  MatSnackBarModule, MatTabsModule,
   MatToolbarModule
 } from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -44,6 +45,8 @@ import {PredictionService} from "./chat/prediction.service";
 import {FormsModule} from "@angular/forms";
 import {MessageService} from "./chat/message.service";
 import { FileComponent } from './file/file.component';
+import { CreateComponent } from './create/create.component';
+import {ComponentService} from "./create/component.service";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -63,7 +66,8 @@ export function createTranslateLoader(http: HttpClient) {
     ErrorComponent,
     ChatComponent,
     EventComponent,
-    FileComponent
+    FileComponent,
+    CreateComponent
   ],
   imports: [
     // angular modules
@@ -93,6 +97,10 @@ export function createTranslateLoader(http: HttpClient) {
     MatSelectModule,
     MatExpansionModule,
     MatFormFieldModule,
+    MatTabsModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatChipsModule
 
     // custom modules
   ],
@@ -112,7 +120,8 @@ export function createTranslateLoader(http: HttpClient) {
     // services
     UserService,
     PredictionService,
-    MessageService
+    MessageService,
+    ComponentService
   ],
   bootstrap: [AppComponent],
   entryComponents: [DeleteConfirmDialogComponent]

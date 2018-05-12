@@ -1,0 +1,32 @@
+
+<div class="cancel" (click)="endEditing.emit(true)">
+  <mat-icon>cancel</mat-icon>
+</div>
+
+<mat-form-field class="user-search">
+  <input #userSearch type="text" placeholder="Type username, id..." aria-label="Number" matInput [matAutocomplete]="auto">
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let user of users" [value]="user.id" (click)="selectUser(user, $event); userSearch.value = null;">
+      {{ user.name }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+
+<mat-chip-list>
+  <mat-chip color="accent" selected="true" *ngFor="let user of selectedUsers">
+    {{user.name}}
+    <mat-icon matChipRemove (click)="removeUser(user, $event)">cancel</mat-icon>
+  </mat-chip>
+</mat-chip-list>
+
+<mat-tab-group>
+  <mat-tab label="Message">
+    <app-chat [messages]="messages" [chatId]="chatId" (onMessage)="sendMessage($event)" [isNew]="isNewMessage"></app-chat>
+  </mat-tab>
+  <mat-tab label="Share">
+    <app-file (onDocument)="uploadFile($event)" [isBigFileManager]="true"></app-file>
+  </mat-tab>
+  <mat-tab label="Event">
+    <!-- TODO -->
+  </mat-tab>
+</mat-tab-group>

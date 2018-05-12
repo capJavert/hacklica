@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {PredictionService} from "./prediction.service";
 import {ConditionsUtil} from "../modules/utils/ConditionsUtil";
 import {LoaderService} from "../modules/loader/loader.service";
@@ -6,6 +6,7 @@ import {Document, DocumentReply, Message, MessageReply} from "./message";
 import {UserInstance} from "../modules/user/user.instance";
 import {User} from "../modules/user/user";
 import {MessageService} from "./message.service";
+import {MessageComponent} from "../create/component";
 
 @Component({
   selector: 'app-chat',
@@ -14,10 +15,13 @@ import {MessageService} from "./message.service";
 })
 export class ChatComponent implements OnInit, AfterViewChecked {
   @Input() chatId: number;
+  @Input() isNew: boolean;
   @Input('messages')
   set messages(value: Message[]) {
     this._messages = value;
   }
+
+  @Output() onMessage = new EventEmitter<string>();
 
   _messages: Message[];
   prediction: string;
@@ -74,7 +78,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     this.predictionService.search(this.message).subscribe(
       (response) => {
         if (ConditionsUtil.isNotNull(response)) {
-          console.log(response.search);
           this.prediction = response.search;
         }
       },
@@ -90,6 +93,13 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     }
 
     if (ConditionsUtil.isNotNullNorEmpty(this.message)) {
+      if(this.isNew) {
+        this.onMessage.emit(this.message);
+        this.message = "";
+
+        return;
+      }
+
       this.loader.start();
 
       let newMessage = new MessageReply();

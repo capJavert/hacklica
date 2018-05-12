@@ -25,6 +25,8 @@ export class HomeComponent extends BaseComponent implements OnInit {
   emailFilter: boolean = false;
   documentFilter: boolean = false;
 
+  isEditing: boolean = false;
+
   constructor(notificationService: NotificationService,
               _hotkeysService: HotkeysService,
               loader: LoaderService,
@@ -178,6 +180,25 @@ export class HomeComponent extends BaseComponent implements OnInit {
         this.handleError(error);
         this.loader.stop()
       },
+    );
+  }
+
+  create() {
+    this.isEditing = !this.isEditing;
+  }
+
+  endEditing() {
+    this.isEditing = false;
+
+    this.loader.start();
+
+    this.userService.notifications().subscribe(
+      (notifications) => {
+        this._pinnedNotifications = notifications.filter(obj => obj.pinned == true);
+        this._notifications = notifications.filter(obj => obj.pinned == false);
+      },
+      error => this.handleError(error),
+      () => this.loader.stop()
     );
   }
 }

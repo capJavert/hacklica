@@ -28,7 +28,7 @@
            placeholder="Type message, command..."
            (keyup)="messageReply($event)"
     />
-    <app-file (loadMore)="uploadFile($event)"></app-file>
+    <app-file (onDocument)="uploadFile($event)"></app-file>
     <span class="prediction" *ngIf="!!prediction">{{prediction}}</span>
   </div>
 </div>

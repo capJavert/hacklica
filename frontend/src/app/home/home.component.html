@@ -1,11 +1,21 @@
 <div class="row main-content">
-  <div class="col-md-8">
+  <div *ngIf="isEditing" class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+    <app-create (endEditing)="endEditing()"></app-create>
+  </div>
+
+  <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
     <ul class="actions-container">
-      <li><button type="button" [color]="'primary'" mat-raised-button><mat-icon>add</mat-icon></button></li>
+      <li *ngIf="!isEditing">
+        <button (click)="create()" type="button" [color]="'primary'" mat-raised-button>
+          <mat-icon>add</mat-icon>
+        </button>
+      </li>
     </ul>
   </div>
 
-  <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+  <div class="clearfix" style="height: 20px"></div>
+
+  <div style="margin-top: 20px" class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
     <ul class="filter-container">
       <li [ngClass]="{'selected': messageFilter}"
           (click)="messageFilter = !messageFilter">Messages</li>
@@ -82,7 +92,7 @@
             </mat-panel-title>
             <mat-panel-description>
             <span *ngIf="notification.type === 'event'" class="notification-title">
-              Event at {{notification.last_notif | date: 'HH:mm'}}
+              Event at {{notification.last_notif | date: 'h:mm a'}}
             </span>
             </mat-panel-description>
             <section class="notification-actions">
@@ -170,7 +180,7 @@
           </mat-panel-title>
           <mat-panel-description>
             <span *ngIf="notification.type === 'event'" class="notification-title">
-              Event at {{notification.last_notif | date: 'HH:mm'}}
+              Event at {{notification.last_notif*1000 | date: 'h:mm a'}}
             </span>
           </mat-panel-description>
           <section class="notification-actions">

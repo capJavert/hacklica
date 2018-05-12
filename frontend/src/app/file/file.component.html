@@ -1,7 +1,10 @@
 
 <label for="upload-photo">
-  <div class="valign-center">
+  <span *ngIf="!isBigFileManager" class="valign-center">
     <mat-icon>attach_file</mat-icon>
-  </div>
+  </span>
 </label>
-<input id="upload-photo" type="file" accept="image/*" (change)="changeListener($event)">
+
+<div [ngClass]="{'bigFileManager': isBigFileManager}">
+  <input id="upload-photo" type="file" accept="image/*" (change)="changeListener($event)">
+</div>

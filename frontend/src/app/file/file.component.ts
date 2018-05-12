@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Document} from "../chat/message";
 
 @Component({
@@ -7,10 +7,9 @@ import {Document} from "../chat/message";
   styleUrls: ['./file.component.less']
 })
 export class FileComponent {
-  @Output() loadMore = new EventEmitter<Document>();
+  @Output() onDocument = new EventEmitter<Document>();
+  @Input() isBigFileManager: boolean;
   document: Document;
-
-  constructor() {}
 
   changeListener($event) : void {
     this.readFile($event.target);
@@ -30,7 +29,7 @@ export class FileComponent {
 
       if(base64string.length == 2) {
         this.document.data = base64string[1];
-        this.loadMore.emit(this.document);
+        this.onDocument.emit(this.document);
       }
     };
 
